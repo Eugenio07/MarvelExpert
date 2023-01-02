@@ -10,21 +10,37 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.marvelexpert.data.entities.Character
+import com.example.marvelexpert.ui.screens.CharactersScreen
 import com.example.marvelexpert.ui.theme.MarvelExpertTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MarvelExpertTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+            val characters = (1..10).map {
+                Character(
+                    it,
+                    "Name $it",
+                    "Description",
+                    "https://via.placeholder.com/150x225/FFFF00/000000?text=name$it"
+                )
             }
+            MarvelApp {
+                CharactersScreen(characters = characters)
+            }
+        }
+    }
+}
+
+@Composable
+fun MarvelApp(content: @Composable () -> Unit){
+    MarvelExpertTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            content()
         }
     }
 }
@@ -32,12 +48,4 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Greeting(name: String) {
     Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    MarvelExpertTheme {
-        Greeting("Android")
-    }
 }
