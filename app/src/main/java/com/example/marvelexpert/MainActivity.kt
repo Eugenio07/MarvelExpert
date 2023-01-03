@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.marvelexpert.data.entities.Character
+import com.example.marvelexpert.ui.navigation.Navigation
 import com.example.marvelexpert.ui.screens.CharactersScreen
 import com.example.marvelexpert.ui.theme.MarvelExpertTheme
 
@@ -18,16 +19,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val characters = (1..10).map {
-                Character(
-                    it,
-                    "Name $it",
-                    "Description",
-                    "https://via.placeholder.com/150x225/FFFF00/000000?text=name$it"
-                )
-            }
             MarvelApp {
-                CharactersScreen()
+                Navigation()
             }
         }
     }

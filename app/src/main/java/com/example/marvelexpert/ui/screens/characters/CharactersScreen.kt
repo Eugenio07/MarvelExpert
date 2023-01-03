@@ -1,9 +1,9 @@
 package com.example.marvelexpert.ui.screens
 
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -18,37 +18,41 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import com.example.marvelexpert.MarvelApp
 import com.example.marvelexpert.data.CharactersRepository
 import com.example.marvelexpert.data.entities.Character
 
 @Composable
-fun CharactersScreen() {
-    var charactersState by rememberSaveable{ mutableStateOf(emptyList<Character>()) }
+fun CharactersScreen(onClick: (Character) -> Unit) {
+    var charactersState by rememberSaveable { mutableStateOf(emptyList<Character>()) }
     LaunchedEffect(Unit) {
-        val charactersRepository = CharactersRepository()
-        charactersState = charactersRepository.getCharacters()
+        charactersState = CharactersRepository.getCharacters()
     }
-    CharactersScreen(charactersState)
+    CharactersScreen(
+        characters = charactersState,
+        onClick = onClick
+    )
 }
 
 @Composable
-fun CharactersScreen(characters: List<Character>) {
+fun CharactersScreen(characters: List<Character>, onClick: (Character) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(170.dp),
         contentPadding = PaddingValues(4.dp)
     ) {
         items(characters) {
-            CharacterItem(character = it)
+            CharacterItem(
+                character = it,
+                modifier = Modifier.clickable { onClick(it) }
+            )
         }
     }
 }
 
 @Composable
-fun CharacterItem(character: Character) {
-    Column(modifier = Modifier.padding(8.dp)) {
+fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
+    Column(modifier = modifier.padding(8.dp)) {
         Card {
             Image(
                 painter = rememberAsyncImagePainter(model = character.thumbnail),
@@ -68,20 +72,4 @@ fun CharacterItem(character: Character) {
         )
     }
 
-}
-
-@Preview
-@Composable
-fun CharactersScreenPreview() {
-    val characters = (1..10).map {
-        Character(
-            it,
-            "Name $it",
-            "Description",
-            "https://via.placeholder.com/150x225/FFFF00/000000?text=name$it"
-        )
-    }
-    MarvelApp {
-        CharactersScreen(characters = characters)
-    }
 }
