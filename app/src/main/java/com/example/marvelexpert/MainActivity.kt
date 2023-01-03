@@ -9,10 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.ui.navigation.Navigation
-import com.example.marvelexpert.ui.screens.CharactersScreen
 import com.example.marvelexpert.ui.theme.MarvelExpertTheme
 
 class MainActivity : ComponentActivity() {

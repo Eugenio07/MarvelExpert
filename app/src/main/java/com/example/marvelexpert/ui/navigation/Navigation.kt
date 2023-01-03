@@ -6,7 +6,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marvelexpert.ui.screens.CharactersScreen
+import com.example.marvelexpert.ui.screens.characters.CharactersScreen
 import com.example.marvelexpert.ui.screens.characterDetail.CharacterDetailScreen
 
 @Composable

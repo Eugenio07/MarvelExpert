@@ -28,6 +28,7 @@ import com.example.marvelexpert.R
 import com.example.marvelexpert.data.CharactersRepository
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.entities.Reference
+import com.example.marvelexpert.data.entities.Url
 import com.example.marvelexpert.ui.navigation.ArrowBackIcon
 
 @Composable
@@ -129,7 +130,8 @@ fun CharacterDetailScreenPreview() {
         listOf(Reference("Comic 1"), Reference("Comic 2")),
         listOf(Reference("Comic 1"), Reference("Comic 2")),
         listOf(Reference("Comic 1"), Reference("Comic 2")),
-        listOf(Reference("Comic 1"), Reference("Comic 2"))
+        listOf(Reference("Comic 1"), Reference("Comic 2")),
+        listOf(Url("Comic 1", "url 1"), Url("Comic 2", "url 2"))
     )
 
     MarvelApp {
