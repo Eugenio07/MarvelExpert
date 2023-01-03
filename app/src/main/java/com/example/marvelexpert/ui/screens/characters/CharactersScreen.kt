@@ -10,20 +10,21 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.marvelexpert.R
 import com.example.marvelexpert.data.CharactersRepository
 import com.example.marvelexpert.data.entities.Character
+import com.example.marvelexpert.ui.screens.characterDetail.AppBarOverflowMenu
 
 @Composable
 fun CharactersScreen(onClick: (Character) -> Unit) {
-    var charactersState by rememberSaveable { mutableStateOf(emptyList<Character>()) }
+    var charactersState by remember() { mutableStateOf(emptyList<Character>()) }
     LaunchedEffect(Unit) {
         charactersState = CharactersRepository.getCharacters()
     }
@@ -57,9 +58,11 @@ fun CharactersScreen(characters: List<Character>, onClick: (Character) -> Unit) 
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(8.dp)) {
+
         Card {
             Image(
                 painter = rememberAsyncImagePainter(model = character.thumbnail),
@@ -71,12 +74,20 @@ fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
                     .aspectRatio(1f)
             )
         }
-        Text(
-            text = character.name,
-            style = MaterialTheme.typography.subtitle1,
-            maxLines = 2,
-            modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.End
+        ) {
+            Text(
+                text = character.name,
+                style = MaterialTheme.typography.subtitle1,
+                maxLines = 2,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
+                textAlign = TextAlign.Start,
+            )
+            AppBarOverflowMenu(character.urls)
+        }
+
     }
 
 }

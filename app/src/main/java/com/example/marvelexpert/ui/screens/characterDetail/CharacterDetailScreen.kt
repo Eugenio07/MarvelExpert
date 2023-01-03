@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Bookmark
 import androidx.compose.material.icons.filled.Collections
 import androidx.compose.material.icons.filled.Event
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -43,13 +44,15 @@ fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun CharacterDetailScreen(character: Character, onUpClick: () -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(character.name) },
-                navigationIcon = { ArrowBackIcon(onUpClick) }
+                navigationIcon = { ArrowBackIcon(onUpClick) },
+                actions = { AppBarOverflowMenu(character.urls) }
             )
         }
     ) { padding ->
