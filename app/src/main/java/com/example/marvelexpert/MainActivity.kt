@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
             MarvelApp {
-                CharactersScreen(characters = characters)
+                CharactersScreen()
             }
         }
     }
