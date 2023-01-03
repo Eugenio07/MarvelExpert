@@ -13,15 +13,19 @@ import com.example.marvelexpert.ui.screens.characterDetail.CharacterDetailScreen
 fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavItem.Characters.route){
-        composable(NavItem.Characters){
+    NavHost(navController = navController, startDestination = NavItem.Characters.route) {
+        composable(NavItem.Characters) {
             CharactersScreen(onClick = { character ->
                 navController.navigate(NavItem.CharacterDetail.createRoute(character.id))
             })
         }
 
-        composable(NavItem.CharacterDetail){character ->
-            CharacterDetailScreen(character.findArg<Int>(NavArg.ItemId))
+        composable(NavItem.CharacterDetail) { character ->
+            val id = character.findArg<Int>(NavArg.ItemId)
+            CharacterDetailScreen(
+                characterId = id,
+                onUpClick = { navController.popBackStack() }
+            )
         }
     }
 }
