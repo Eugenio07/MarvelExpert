@@ -4,18 +4,19 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 
 sealed class NavItem(
-    internal val baseRoute: String,
+    internal val feature: Feature,
+    internal val subRoute: String = "Home",
     private val navArgs: List<NavArg> = emptyList()
 ) {
-    object Characters : NavItem("characters")
+    class ContentType(feature: Feature) : NavItem(feature)
 
-    object CharacterDetail : NavItem("characterDetail", listOf(NavArg.ItemId)) {
-        fun createRoute(itemId: Int) = "$baseRoute/$itemId"
+    class ContentDetail(feature: Feature) : NavItem(feature, "detail", listOf(NavArg.ItemId)){
+        fun createRoute(itemId: Int) = "${feature.route}/$subRoute/$itemId"
     }
 
     val route = run {
         val argValues = navArgs.map { "{${it.key}}" }
-        listOf(baseRoute)
+        listOf(feature.route, subRoute)
             .plus(argValues)
             .joinToString("/")
     }

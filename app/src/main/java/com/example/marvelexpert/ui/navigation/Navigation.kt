@@ -3,24 +3,40 @@ package com.example.marvelexpert.ui.navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.marvelexpert.ui.screens.characters.CharactersScreen
+import androidx.navigation.navigation
 import com.example.marvelexpert.ui.screens.characterDetail.CharacterDetailScreen
+import com.example.marvelexpert.ui.screens.characters.CharactersScreen
 
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = NavItem.Characters.route) {
-        composable(NavItem.Characters) {
+    NavHost(
+        navController = navController,
+        startDestination = Feature.CHARACTERS.route
+    ) {
+        charactersNav(navController)
+    }
+}
+
+private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
+    navigation(
+        startDestination = NavItem.ContentType(Feature.CHARACTERS).route,
+        route = Feature.CHARACTERS.route
+    ) {
+        composable(NavItem.ContentType(Feature.CHARACTERS)) {
             CharactersScreen(onClick = { character ->
-                navController.navigate(NavItem.CharacterDetail.createRoute(character.id))
+                navController.navigate(
+                    NavItem.ContentDetail(Feature.CHARACTERS).createRoute(character.id)
+                )
             })
         }
 
-        composable(NavItem.CharacterDetail) { character ->
+        composable(NavItem.ContentDetail(Feature.CHARACTERS)) { character ->
             val id = character.findArg<Int>(NavArg.ItemId)
             CharacterDetailScreen(
                 characterId = id,
