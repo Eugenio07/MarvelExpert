@@ -2,15 +2,21 @@ package com.example.marvelexpert.ui.screens.characterDetail
 
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.app.ShareCompat
 import com.example.marvelexpert.R
 import com.example.marvelexpert.data.entities.Character
+import com.example.marvelexpert.ui.navigation.AppBarIcon
 import com.example.marvelexpert.ui.navigation.ArrowBackIcon
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -38,6 +44,17 @@ fun CharacterDetailScaffold(
                         contentDescription = stringResource(R.string.share_character)
                     )
                 }
+            }
+        },
+        floatingActionButtonPosition = FabPosition.Center,
+        isFloatingActionButtonDocked = true,
+        bottomBar = {
+            BottomAppBar(
+                cutoutShape = CircleShape
+            ) {
+                AppBarIcon(imageVector = Icons.Default.Menu, onClick = { })
+                Spacer(modifier = Modifier.weight(1f))
+                AppBarIcon(imageVector = Icons.Default.Favorite, onClick = { })
             }
         },
         content = content
