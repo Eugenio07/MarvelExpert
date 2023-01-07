@@ -1,4 +1,4 @@
-package com.example.marvelexpert.ui.screens.characterDetail
+package com.example.marvelexpert.ui.screens.common
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons

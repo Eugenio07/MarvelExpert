@@ -1,4 +1,4 @@
-package com.example.marvelexpert.ui.screens.characterDetail
+package com.example.marvelexpert.ui.screens.common
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
@@ -20,23 +20,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.marvelexpert.R
-import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.entities.MarvelItem
 import com.example.marvelexpert.data.entities.Reference
 import com.example.marvelexpert.data.entities.ReferenceList
-import com.example.marvelexpert.data.repositories.CharactersRepository
-
-@Composable
-fun MarvelItemDetailScreen(characterId: Int, onUpClick: () -> Unit) {
-    var characterState by remember { mutableStateOf<Character?>(null) }
-    LaunchedEffect(Unit) {
-        characterState = CharactersRepository.find(characterId)
-
-    }
-    characterState?.let {
-        MarvelItemDetailScreen(it, onUpClick)
-    }
-}
 
 @Composable
 fun MarvelItemDetailScreen(

@@ -1,4 +1,4 @@
-package com.example.marvelexpert.ui.screens.characterDetail
+package com.example.marvelexpert.ui.screens.common
 
 import android.content.Context
 import androidx.compose.foundation.layout.PaddingValues
