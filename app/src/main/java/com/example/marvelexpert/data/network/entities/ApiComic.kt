@@ -24,7 +24,7 @@ data class ApiComic(
     val thumbnail: Thumbnail,
     val title: String,
     val upc: String,
-    val urls: List<Url>,
+    val urls: List<ApuUrl>,
     val variantDescription: String,
     val variants: List<ApiVariant>
 )

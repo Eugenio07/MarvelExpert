@@ -2,6 +2,7 @@ package com.example.marvelexpert.data.repositories
 
 import com.example.marvelexpert.data.entities.*
 import com.example.marvelexpert.data.network.entities.ApiComic
+import com.example.marvelexpert.data.network.entities.ApiEvent
 import com.example.marvelexpert.data.network.entities.ApiResponse
 import com.example.marvelexpert.data.network.entities.ApiResponse.Data.ApiCharacter.ApiReferenceList
 import com.example.marvelexpert.data.network.entities.asString
@@ -15,6 +16,20 @@ fun ApiResponse.Data.ApiCharacter.asCharacter(): Character = Character(
     listOf(
         comics.toDomain(ReferenceList.Type.COMIC),
         events.toDomain(ReferenceList.Type.EVENT),
+        series.toDomain(ReferenceList.Type.SERIES),
+        stories.toDomain(ReferenceList.Type.STORY)
+    ),
+    urls.map { Url(it.type, it.url) }
+)
+
+fun ApiEvent.asEvent(): Event = Event(
+    id,
+    title,
+    description,
+    thumbnail.asString(),
+    listOf(
+        comics.toDomain(ReferenceList.Type.COMIC),
+        characters.toDomain(ReferenceList.Type.EVENT),
         series.toDomain(ReferenceList.Type.SERIES),
         stories.toDomain(ReferenceList.Type.STORY)
     ),

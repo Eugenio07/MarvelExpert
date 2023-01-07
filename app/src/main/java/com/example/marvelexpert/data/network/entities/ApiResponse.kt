@@ -27,7 +27,7 @@ data class ApiResponse<T>(
             val events: ApiReferenceList,
             val series: ApiReferenceList,
             val stories: ApiReferenceList,
-            val urls: List<Url>
+            val urls: List<ApuUrl>
         ) {
             data class Thumbnail(
                 val path: String,
@@ -46,7 +46,7 @@ data class ApiResponse<T>(
                 )
             }
 
-            data class Url(
+            data class ApuUrl(
                 val type: String,
                 val url: String
             )
