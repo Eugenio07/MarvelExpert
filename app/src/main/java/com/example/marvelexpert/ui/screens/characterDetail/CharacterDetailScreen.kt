@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.marvelexpert.MarvelApp
 import com.example.marvelexpert.R
-import com.example.marvelexpert.data.CharactersRepository
+import com.example.marvelexpert.data.repositories.CharactersRepository
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.entities.Reference
 import com.example.marvelexpert.data.entities.Url
@@ -34,7 +34,7 @@ import com.example.marvelexpert.data.entities.Url
 fun CharacterDetailScreen(characterId: Int, onUpClick: () -> Unit) {
     var characterState by remember { mutableStateOf<Character?>(null) }
     LaunchedEffect(Unit) {
-        characterState = CharactersRepository.findCharacter(characterId)
+        characterState = CharactersRepository.find(characterId)
 
     }
     characterState?.let {

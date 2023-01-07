@@ -23,10 +23,10 @@ data class ApiResponse<T>(
             val modified: String,
             val thumbnail: Thumbnail,
             val resourceURI: String,
-            val comics: Comics,
-            val series: Series,
-            val stories: Stories,
-            val events: Events,
+            val comics: ApiReferenceList,
+            val events: ApiReferenceList,
+            val series: ApiReferenceList,
+            val stories: ApiReferenceList,
             val urls: List<Url>
         ) {
             data class Thumbnail(
@@ -34,55 +34,17 @@ data class ApiResponse<T>(
                 val extension: String
             )
 
-            data class Comics(
+            data class ApiReferenceList(
                 val available: Int,
                 val collectionURI: String,
-                val items: List<Item>,
+                val items: List<ApiReference>,
                 val returned: Int
             ) {
-                data class Item(
+                data class ApiReference(
                     val resourceURI: String,
                     val name: String
                 )
             }
-
-            data class Series(
-                val available: Int,
-                val collectionURI: String,
-                val items: List<Item>,
-                val returned: Int
-            ) {
-                data class Item(
-                    val resourceURI: String,
-                    val name: String
-                )
-            }
-
-            data class Stories(
-                val available: Int,
-                val collectionURI: String,
-                val items: List<Item>,
-                val returned: Int
-            ) {
-                data class Item(
-                    val resourceURI: String,
-                    val name: String,
-                    val type: String
-                )
-            }
-
-            data class Events(
-                val available: Int,
-                val collectionURI: String,
-                val items: List<Item>,
-                val returned: Int
-            ) {
-                data class Item(
-                    val resourceURI: String,
-                    val name: String
-                )
-            }
-
             data class Url(
                 val type: String,
                 val url: String

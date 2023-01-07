@@ -18,7 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import com.example.marvelexpert.R
-import com.example.marvelexpert.data.CharactersRepository
+import com.example.marvelexpert.data.repositories.CharactersRepository
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.ui.screens.characterDetail.AppBarOverflowMenu
 
@@ -26,7 +26,7 @@ import com.example.marvelexpert.ui.screens.characterDetail.AppBarOverflowMenu
 fun CharactersScreen(onClick: (Character) -> Unit) {
     var charactersState by remember() { mutableStateOf(emptyList<Character>()) }
     LaunchedEffect(Unit) {
-        charactersState = CharactersRepository.getCharacters()
+        charactersState = CharactersRepository.get()
     }
     CharactersScreen(
         characters = charactersState,
