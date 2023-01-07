@@ -10,7 +10,7 @@ sealed class NavItem(
 ) {
     class ContentType(feature: Feature) : NavItem(feature)
 
-    class ContentDetail(feature: Feature) : NavItem(feature, "detail", listOf(NavArg.ItemId)){
+    class ContentDetail(feature: Feature) : NavItem(feature, "detail", listOf(NavArg.ItemId)) {
         fun createRoute(itemId: Int) = "${feature.route}/$subRoute/$itemId"
     }
 

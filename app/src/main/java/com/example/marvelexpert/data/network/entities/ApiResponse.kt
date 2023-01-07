@@ -45,6 +45,7 @@ data class ApiResponse<T>(
                     val name: String
                 )
             }
+
             data class Url(
                 val type: String,
                 val url: String

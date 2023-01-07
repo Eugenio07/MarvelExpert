@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MarvelApp(content: @Composable () -> Unit){
+fun MarvelApp(content: @Composable () -> Unit) {
     MarvelExpertTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),

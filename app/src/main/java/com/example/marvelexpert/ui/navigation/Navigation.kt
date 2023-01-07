@@ -8,7 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navigation
-import com.example.marvelexpert.ui.screens.characterDetail.CharacterDetailScreen
+import com.example.marvelexpert.ui.screens.characterDetail.MarvelItemDetailScreen
 import com.example.marvelexpert.ui.screens.characters.CharactersScreen
 
 @Composable
@@ -38,7 +38,7 @@ private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
 
         composable(NavItem.ContentDetail(Feature.CHARACTERS)) { character ->
             val id = character.findArg<Int>(NavArg.ItemId)
-            CharacterDetailScreen(
+            MarvelItemDetailScreen(
                 characterId = id,
                 onUpClick = { navController.popBackStack() }
             )

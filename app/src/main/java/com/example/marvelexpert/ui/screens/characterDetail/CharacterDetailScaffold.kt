@@ -15,14 +15,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.core.app.ShareCompat
 import com.example.marvelexpert.R
-import com.example.marvelexpert.data.entities.Character
+import com.example.marvelexpert.data.entities.MarvelItem
+import com.example.marvelexpert.data.entities.Url
 import com.example.marvelexpert.ui.navigation.AppBarIcon
 import com.example.marvelexpert.ui.navigation.ArrowBackIcon
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CharacterDetailScaffold(
-    character: Character,
+fun MarvelItemDetailScaffold(
+    marvelItem: MarvelItem,
     onUpClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
@@ -31,14 +32,20 @@ fun CharacterDetailScaffold(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(character.name) },
+                title = { Text(marvelItem.title) },
                 navigationIcon = { ArrowBackIcon(onUpClick) },
-                actions = { AppBarOverflowMenu(character.urls) }
+                actions = { AppBarOverflowMenu(marvelItem.urls) }
             )
         },
         floatingActionButton = {
-            if (character.urls.isNotEmpty()) {
-                FloatingActionButton(onClick = { shareCharacter(context, character) }) {
+            if (marvelItem.urls.isNotEmpty()) {
+                FloatingActionButton(onClick = {
+                    shareCharacter(
+                        context,
+                        marvelItem.title,
+                        marvelItem.urls.first()
+                    )
+                }) {
                     Icon(
                         imageVector = Icons.Default.Share,
                         contentDescription = stringResource(R.string.share_character)
@@ -61,12 +68,12 @@ fun CharacterDetailScaffold(
     )
 }
 
-private fun shareCharacter(context: Context, character: Character) {
+private fun shareCharacter(context: Context, name: String, url: Url) {
     val intent = ShareCompat
         .IntentBuilder(context)
         .setType("text/plain")
-        .setSubject(character.name)
-        .setText(character.urls.first().url)
+        .setSubject(name)
+        .setText(url.destination)
         .intent
     context.startActivity(intent)
 }

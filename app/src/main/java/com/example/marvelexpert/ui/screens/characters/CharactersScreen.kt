@@ -1,93 +1,22 @@
 package com.example.marvelexpert.ui.screens.characters
 
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.*
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
-import com.example.marvelexpert.R
-import com.example.marvelexpert.data.repositories.CharactersRepository
+import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.Character
-import com.example.marvelexpert.ui.screens.characterDetail.AppBarOverflowMenu
+import com.example.marvelexpert.data.repositories.CharactersRepository
+import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 
+@OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class)
 @Composable
 fun CharactersScreen(onClick: (Character) -> Unit) {
-    var charactersState by remember() { mutableStateOf(emptyList<Character>()) }
+    var charactersState by remember { mutableStateOf(emptyList<Character>()) }
     LaunchedEffect(Unit) {
         charactersState = CharactersRepository.get()
     }
-    CharactersScreen(
-        characters = charactersState,
+    MarvelItemsListScreen(
+        items = charactersState,
         onClick = onClick
     )
-}
-
-@Composable
-fun CharactersScreen(characters: List<Character>, onClick: (Character) -> Unit) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(stringResource(R.string.app_name)) }
-            )
-        }
-    ) { padding ->
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(170.dp),
-            contentPadding = PaddingValues(4.dp),
-            modifier = Modifier.padding(padding)
-        ) {
-            items(characters) {
-                CharacterItem(
-                    character = it,
-                    modifier = Modifier.clickable { onClick(it) }
-                )
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterialApi::class)
-@Composable
-fun CharacterItem(character: Character, modifier: Modifier = Modifier) {
-    Column(modifier = modifier.padding(8.dp)) {
-
-        Card {
-            Image(
-                painter = rememberAsyncImagePainter(model = character.thumbnail),
-                contentDescription = character.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .background(color = Color.LightGray)
-                    .fillMaxWidth()
-                    .aspectRatio(1f)
-            )
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.End
-        ) {
-            Text(
-                text = character.name,
-                style = MaterialTheme.typography.subtitle1,
-                maxLines = 2,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 16.dp),
-                textAlign = TextAlign.Start,
-            )
-            AppBarOverflowMenu(character.urls)
-        }
-
-    }
-
 }

@@ -1,6 +1,5 @@
 package com.example.marvelexpert.data.repositories
 
-import com.antonioleiva.marvelcompose.data.repositories.Repository
 import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.network.ApiClient
 
@@ -16,7 +15,7 @@ object ComicsRepository : Repository<Comic>() {
     }
 
     suspend fun find(id: Int): Comic = super.find(
-        findActionLocal = { it.id == id },
+        id,
         findActionRemote = {
             ApiClient
                 .comicsService
