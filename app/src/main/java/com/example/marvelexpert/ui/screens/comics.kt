@@ -13,7 +13,7 @@ import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 @ExperimentalFoundationApi
 @Composable
 fun ComicsScreen(onClick: (Comic) -> Unit) {
-    var comicsState by remember() { mutableStateOf(emptyList<Comic>()) }
+    var comicsState by remember { mutableStateOf(emptyList<Comic>()) }
     LaunchedEffect(Unit) {
         comicsState = ComicsRepository.get()
     }

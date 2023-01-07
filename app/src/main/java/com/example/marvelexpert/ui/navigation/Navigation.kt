@@ -72,6 +72,7 @@ private fun NavGraphBuilder.comicsNav(navController: NavController) {
         }
     }
 }
+
 @OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
 private fun NavGraphBuilder.eventsNav(navController: NavController) {
     navigation(
