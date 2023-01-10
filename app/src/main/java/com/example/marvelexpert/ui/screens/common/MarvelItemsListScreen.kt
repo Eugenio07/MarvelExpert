@@ -29,17 +29,31 @@ fun <T : MarvelItem> MarvelItemsListScreen(items: List<T>, onClick: (T) -> Unit)
             )
         }
     ) { padding ->
-        LazyVerticalGrid(
-            columns = GridCells.Adaptive(170.dp),
-            contentPadding = PaddingValues(4.dp),
+        MarvelItemList(
+            items = items,
+            onClick = onClick,
             modifier = Modifier.padding(padding)
-        ) {
-            items(items) {
-                MarvelListItem(
-                    marvelItem = it,
-                    modifier = Modifier.clickable { onClick(it) }
-                )
-            }
+        )
+    }
+}
+
+@ExperimentalCoilApi
+@Composable
+fun <T : MarvelItem> MarvelItemList(
+    items: List<T>,
+    onClick: (T) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(170.dp),
+        contentPadding = PaddingValues(4.dp),
+        modifier = modifier
+    ) {
+        items(items) {
+            MarvelListItem(
+                marvelItem = it,
+                modifier = Modifier.clickable { onClick(it) }
+            )
         }
     }
 }
