@@ -8,6 +8,12 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.ui.screens.*
+import com.example.marvelexpert.ui.screens.characters.CharacterDetailScreen
+import com.example.marvelexpert.ui.screens.characters.CharactersScreen
+import com.example.marvelexpert.ui.screens.comics.ComicDetailScreen
+import com.example.marvelexpert.ui.screens.comics.ComicsScreen
+import com.example.marvelexpert.ui.screens.events.EventDetailScreen
+import com.example.marvelexpert.ui.screens.events.EventsScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -36,9 +42,8 @@ private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
             })
         }
 
-        composable(NavCommand.ContentTypeDetail(Feature.CHARACTERS)) { character ->
-            val id = character.findArg<Int>(NavArg.ItemId)
-            CharacterDetailScreen(characterId = id)
+        composable(NavCommand.ContentTypeDetail(Feature.CHARACTERS)) {
+            CharacterDetailScreen()
         }
     }
 }

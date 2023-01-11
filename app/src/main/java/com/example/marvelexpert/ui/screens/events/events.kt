@@ -1,4 +1,4 @@
-package com.example.marvelexpert.ui.screens
+package com.example.marvelexpert.ui.screens.events
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
@@ -32,6 +32,6 @@ fun EventDetailScreen(eventId: Int) {
         eventState = EventsRepository.find(eventId)
     }
     eventState?.let {
-        MarvelItemDetailScreen(it)
+        MarvelItemDetailScreen(marvelItem = it)
     }
 }
