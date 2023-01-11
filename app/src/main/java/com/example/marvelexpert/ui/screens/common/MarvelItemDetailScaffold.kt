@@ -20,23 +20,14 @@ import com.example.marvelexpert.data.entities.Url
 import com.example.marvelexpert.ui.navigation.AppBarIcon
 import com.example.marvelexpert.ui.navigation.ArrowBackIcon
 
-@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MarvelItemDetailScaffold(
     marvelItem: MarvelItem,
-    onUpClick: () -> Unit,
     content: @Composable (PaddingValues) -> Unit
 ) {
     val context = LocalContext.current
 
     Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(marvelItem.title) },
-                navigationIcon = { ArrowBackIcon(onUpClick) },
-                actions = { AppBarOverflowMenu(marvelItem.urls) }
-            )
-        },
         floatingActionButton = {
             if (marvelItem.urls.isNotEmpty()) {
                 FloatingActionButton(onClick = {
