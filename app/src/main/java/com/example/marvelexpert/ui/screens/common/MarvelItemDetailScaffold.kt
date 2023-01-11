@@ -18,7 +18,6 @@ import com.example.marvelexpert.R
 import com.example.marvelexpert.data.entities.MarvelItem
 import com.example.marvelexpert.data.entities.Url
 import com.example.marvelexpert.ui.navigation.AppBarIcon
-import com.example.marvelexpert.ui.navigation.ArrowBackIcon
 
 @Composable
 fun MarvelItemDetailScaffold(

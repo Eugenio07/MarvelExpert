@@ -3,7 +3,6 @@ package com.example.marvelexpert.data.repositories
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.network.ApiClient
 
-
 object EventsRepository : Repository<Event>() {
 
     suspend fun get(): List<Event> = super.get {

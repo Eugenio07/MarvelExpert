@@ -21,7 +21,7 @@ fun DrawerContent(
     drawerOptions: List<NavItem>,
     selectedIndex: Int,
     onOptionClick: (NavItem) -> Unit
-){
+) {
     Box(
         modifier = Modifier
             .background(

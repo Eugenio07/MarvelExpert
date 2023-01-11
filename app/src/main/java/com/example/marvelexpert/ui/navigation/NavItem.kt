@@ -27,7 +27,8 @@ sealed class NavCommand(
 ) {
     class ContentType(feature: Feature) : NavCommand(feature)
 
-    class ContentTypeDetail(feature: Feature) : NavCommand(feature, "detail", listOf(NavArg.ItemId)) {
+    class ContentTypeDetail(feature: Feature) :
+        NavCommand(feature, "detail", listOf(NavArg.ItemId)) {
         fun createRoute(itemId: Int) = "${feature.route}/$subRoute/$itemId"
     }
 

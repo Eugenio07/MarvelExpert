@@ -55,14 +55,14 @@ fun MarvelApp() {
                         } else {
                             AppBarIcon(
                                 imageVector = Icons.Default.Menu,
-                                onClick = { scope.launch { scaffoldState.drawerState.open() }}
+                                onClick = { scope.launch { scaffoldState.drawerState.open() } }
                             )
                         }
                     }
                 )
             },
             bottomBar = {
-                if(showBottomNavigation) {
+                if (showBottomNavigation) {
                     AppBottomNavigation(
                         bottomNavOptions = bottomNavOptions,
                         currentRoute = currentRoute
@@ -75,7 +75,7 @@ fun MarvelApp() {
                 DrawerContent(
                     drawerOptions = drawerOptions,
                     selectedIndex = drawerSelectedIndex,
-                    onOptionClick = {navItem ->
+                    onOptionClick = { navItem ->
                         scope.launch { scaffoldState.drawerState.close() }
                         navController.navigate(navItem.navCommand.route)
                     }

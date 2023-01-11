@@ -77,7 +77,6 @@ private fun ApiReferenceList.toDomain(type: ReferenceList.Type): ReferenceList {
     return ReferenceList(
         type,
         items
-            ?.let { items.map { Reference(it.name) } }
-            ?: emptyList()
+            .let { items.map { Reference(it.name) } }
     )
 }
