@@ -6,4 +6,12 @@
     <string name="stories">Stories</string>
     <string name="share_character">Share</string>
     <string name="characters">Characters</string>
+    <string name="comic">Comic</string>
+    <string name="magazine">Magazine</string>
+    <string name="trade_paperback">Trade Paperback</string>
+    <string name="hardcover">Hardcover</string>
+    <string name="digest">Digest</string>
+    <string name="graphic_novel">Graphic Novel</string>
+    <string name="digital_comic">Digital Comic</string>
+    <string name="infinite_comic">Infinite Comic</string>
 </resources>
