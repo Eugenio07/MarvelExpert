@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.repositories.ComicsRepository
@@ -22,7 +23,7 @@ fun ComicsScreen(onClick: (Comic) -> Unit) {
     LaunchedEffect(Unit) {
         comicsState = ComicsRepository.get()
     }
-    val formats = Comic.Format.values().take(3)
+    val formats = Comic.Format.values().toList()
     val pagerState = rememberPagerState()
 
 
@@ -48,8 +49,9 @@ private fun ComicFormatsTabRow(
     formats: List<Comic.Format>
 ) {
     val scope = rememberCoroutineScope()
-    TabRow(
+    ScrollableTabRow(
         selectedTabIndex = pagerState.currentPage,
+        edgePadding = 0.dp,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 Modifier.pagerTabIndicatorOffset(
