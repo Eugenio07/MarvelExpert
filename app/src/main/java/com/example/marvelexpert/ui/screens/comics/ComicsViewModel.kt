@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.repositories.ComicsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 
 class ComicsViewModel : ViewModel() {

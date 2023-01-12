@@ -9,18 +9,20 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.repositories.EventsRepository
 import com.example.marvelexpert.ui.navigation.NavArg
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class EventDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private val id = savedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
-    var state by mutableStateOf(UiState())
-        private set
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(event = EventsRepository.find(id))
+            _state.value = UiState(loading = true)
+            _state.value = UiState(event = EventsRepository.find(id))
         }
     }
 

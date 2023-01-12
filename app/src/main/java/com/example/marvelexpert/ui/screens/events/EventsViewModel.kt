@@ -7,16 +7,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.repositories.EventsRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class EventsViewModel : ViewModel() {
-    var state by mutableStateOf(UiState())
-        private set
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(events = EventsRepository.get())
+            _state.value = UiState(loading = true)
+            _state.value = UiState(events = EventsRepository.get())
         }
     }
 

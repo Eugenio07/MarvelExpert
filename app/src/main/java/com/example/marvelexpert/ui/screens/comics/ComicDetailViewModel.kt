@@ -9,18 +9,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.repositories.ComicsRepository
 import com.example.marvelexpert.ui.navigation.NavArg
+import com.example.marvelexpert.ui.screens.events.EventDetailViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class ComicDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private val id = savedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
-    var state by mutableStateOf(UiState())
-        private set
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(comic = ComicsRepository.find(id))
+            _state.value = UiState(loading = true)
+            _state.value = UiState(comic = ComicsRepository.find(id))
         }
     }
 

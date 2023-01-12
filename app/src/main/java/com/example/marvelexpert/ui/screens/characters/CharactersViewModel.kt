@@ -7,16 +7,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.repositories.CharactersRepository
+import com.example.marvelexpert.ui.screens.events.EventDetailViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class CharactersViewModel : ViewModel() {
-    var state by mutableStateOf(UiState())
-        private set
+    private val _state = MutableStateFlow(UiState())
+    val state = _state.asStateFlow()
 
     init {
         viewModelScope.launch {
-            state = UiState(loading = true)
-            state = UiState(characters = CharactersRepository.get())
+            _state.value = UiState(loading = true)
+            _state.value = UiState(characters = CharactersRepository.get())
         }
     }
 

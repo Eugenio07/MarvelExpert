@@ -14,9 +14,10 @@ import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 @ExperimentalFoundationApi
 @Composable
 fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewModel()) {
+    val state by viewModel.state.collectAsState()
     MarvelItemsListScreen(
-        loading = viewModel.state.loading,
-        items = viewModel.state.events,
+        loading = state.loading,
+        items = state.events,
         onClick = onClick
     )
 }
@@ -25,9 +26,10 @@ fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewMode
 @ExperimentalMaterialApi
 @Composable
 fun EventDetailScreen(viewModel: EventDetailViewModel = viewModel()) {
-        MarvelItemDetailScreen(
-            loading = viewModel.state.loading,
-            marvelItem = viewModel.state.event
+    val state by viewModel.state.collectAsState()
+    MarvelItemDetailScreen(
+            loading = state.loading,
+            marvelItem = state.event
         )
 
 }
