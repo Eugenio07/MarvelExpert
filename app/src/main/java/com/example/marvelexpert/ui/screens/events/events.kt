@@ -3,6 +3,7 @@ package com.example.marvelexpert.ui.screens.events
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.*
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.repositories.EventsRepository
@@ -12,13 +13,10 @@ import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun EventsScreen(onClick: (Event) -> Unit) {
-    var eventsState by remember { mutableStateOf(emptyList<Event>()) }
-    LaunchedEffect(Unit) {
-        eventsState = EventsRepository.get()
-    }
+fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewModel()) {
     MarvelItemsListScreen(
-        items = eventsState,
+        loading = viewModel.state.loading,
+        items = viewModel.state.events,
         onClick = onClick
     )
 }
@@ -26,12 +24,10 @@ fun EventsScreen(onClick: (Event) -> Unit) {
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun EventDetailScreen(eventId: Int) {
-    var eventState by remember { mutableStateOf<Event?>(null) }
-    LaunchedEffect(Unit) {
-        eventState = EventsRepository.find(eventId)
-    }
-    eventState?.let {
-        MarvelItemDetailScreen(marvelItem = it)
-    }
+fun EventDetailScreen(viewModel: EventDetailViewModel = viewModel()) {
+        MarvelItemDetailScreen(
+            loading = viewModel.state.loading,
+            marvelItem = viewModel.state.event
+        )
+
 }

@@ -65,8 +65,7 @@ private fun NavGraphBuilder.comicsNav(navController: NavController) {
         }
 
         composable(NavCommand.ContentTypeDetail(Feature.COMICS)) {
-            val id = it.findArg<Int>(NavArg.ItemId)
-            ComicDetailScreen(comicId = id)
+            ComicDetailScreen()
         }
     }
 }
@@ -88,8 +87,7 @@ private fun NavGraphBuilder.eventsNav(navController: NavController) {
         }
 
         composable(NavCommand.ContentTypeDetail(Feature.EVENTS)) {
-            val id = it.findArg<Int>(NavArg.ItemId)
-            EventDetailScreen(eventId = id)
+            EventDetailScreen()
         }
     }
 }

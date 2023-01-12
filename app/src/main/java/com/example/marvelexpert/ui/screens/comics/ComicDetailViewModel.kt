@@ -1,4 +1,4 @@
-package com.example.marvelexpert.ui.screens.characters
+package com.example.marvelexpert.ui.screens.comics
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -6,12 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.marvelexpert.data.entities.Character
-import com.example.marvelexpert.data.repositories.CharactersRepository
+import com.example.marvelexpert.data.entities.Comic
+import com.example.marvelexpert.data.repositories.ComicsRepository
 import com.example.marvelexpert.ui.navigation.NavArg
 import kotlinx.coroutines.launch
 
-class CharacterDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+class ComicDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private val id = savedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
     var state by mutableStateOf(UiState())
@@ -20,12 +20,12 @@ class CharacterDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel()
     init {
         viewModelScope.launch {
             state = UiState(loading = true)
-            state = UiState(character = CharactersRepository.find(id))
+            state = UiState(comic = ComicsRepository.find(id))
         }
     }
 
     data class UiState(
         val loading: Boolean = false,
-        val character: Character? = null
+        val comic: Comic? = null
     )
 }
