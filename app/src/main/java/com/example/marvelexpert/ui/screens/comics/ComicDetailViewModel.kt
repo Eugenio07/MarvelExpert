@@ -6,7 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.Either
 import com.example.marvelexpert.data.entities.Comic
+import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.repositories.ComicsRepository
 import com.example.marvelexpert.ui.navigation.NavArg
 import com.example.marvelexpert.ui.screens.events.EventDetailViewModel
@@ -29,6 +31,6 @@ class ComicDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
 
     data class UiState(
         val loading: Boolean = false,
-        val comic: Comic? = null
+        val comic: Result<Comic?> = Either.Right(null)
     )
 }

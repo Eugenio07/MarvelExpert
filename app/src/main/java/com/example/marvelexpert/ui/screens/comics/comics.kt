@@ -15,6 +15,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.R
 import com.example.marvelexpert.data.entities.Comic
+import com.example.marvelexpert.ui.screens.common.ErrorMessage
 import com.example.marvelexpert.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelexpert.ui.screens.common.MarvelItemList
 import com.google.accompanist.pager.*
@@ -40,12 +41,15 @@ fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = viewMode
         ) { page ->
             val format = formats[page]
             viewModel.formatRequested(format)
-            val pageState = viewModel.state.getValue(format).value
-            MarvelItemList(
-                loading = pageState.loading,
-                items = pageState.comics,
-                onClick = onClick
-            )
+            val pageState by viewModel.state.getValue(format).collectAsState()
+
+            pageState.comics.fold({ ErrorMessage(error = it)}){
+                MarvelItemList(
+                    loading = pageState.loading,
+                    items = it,
+                    onClick = onClick
+                )
+            }
         }
     }
 
