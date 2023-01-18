@@ -1,6 +1,7 @@
 package com.example.marvelexpert.ui.screens.common
 
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
@@ -35,7 +36,7 @@ fun <T : MarvelItem> MarvelItemsListScreen(
         val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
 
-        BackPressedHandler(sheetState.isVisible) {
+        BackHandler(sheetState.isVisible) {
             scope.launch { sheetState.hide() }
         }
 
