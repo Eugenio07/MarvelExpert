@@ -5,12 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,21 +17,37 @@ import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.MarvelItem
 import com.example.marvelexpert.data.entities.Result
 
+@OptIn(ExperimentalMaterialApi::class)
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
 fun <T : MarvelItem> MarvelItemsListScreen(
     loading: Boolean = false,
     items: Result<List<T>>,
-    onClick: (T) -> Unit
+    onClick: (T) -> Unit,
 ) {
-    items.fold({ ErrorMessage(error = it)}){
-        MarvelItemList(
-            loading = loading,
-            items = it,
-            onClick = onClick
-        )
+    items.fold({ ErrorMessage(error = it) }) {
+        var bottomSheetItem by remember { mutableStateOf<T?>(null) }
+        val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+
+        ModalBottomSheetLayout(
+            sheetContent = {
+                MarvelItemBottomPreview(
+                    bottomSheetItem,
+                    onGoToDetail = onClick
+                )
+            },
+            sheetState = sheetState
+        ) {
+            MarvelItemList(
+                loading = loading,
+                items = it,
+                onClick = onClick,
+                onItemMore = { bottomSheetItem = it }
+            )
+        }
     }
+
 
 }
 
@@ -42,6 +57,7 @@ fun <T : MarvelItem> MarvelItemList(
     loading: Boolean,
     items: List<T>,
     onClick: (T) -> Unit,
+    onItemMore: (T) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -60,7 +76,8 @@ fun <T : MarvelItem> MarvelItemList(
                 items(items) {
                     MarvelListItem(
                         marvelItem = it,
-                        modifier = Modifier.clickable { onClick(it) }
+                        modifier = Modifier.clickable { onClick(it) },
+                        onItemMore = onItemMore
                     )
                 }
             }

@@ -47,7 +47,8 @@ fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = viewMode
                 MarvelItemList(
                     loading = pageState.loading,
                     items = it,
-                    onClick = onClick
+                    onClick = onClick,
+                    onItemMore = {}
                 )
             }
         }
