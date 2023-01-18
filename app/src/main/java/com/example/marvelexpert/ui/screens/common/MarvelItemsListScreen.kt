@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.MarvelItem
 import com.example.marvelexpert.data.entities.Result
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
 @ExperimentalCoilApi
@@ -29,12 +30,18 @@ fun <T : MarvelItem> MarvelItemsListScreen(
     items.fold({ ErrorMessage(error = it) }) {
         var bottomSheetItem by remember { mutableStateOf<T?>(null) }
         val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
+        val scope = rememberCoroutineScope()
 
         ModalBottomSheetLayout(
             sheetContent = {
                 MarvelItemBottomPreview(
                     bottomSheetItem,
-                    onGoToDetail = onClick
+                    onGoToDetail = {
+                        scope.launch{
+                            sheetState.hide()
+                            onClick(it)
+                        }
+                    }
                 )
             },
             sheetState = sheetState
@@ -43,7 +50,10 @@ fun <T : MarvelItem> MarvelItemsListScreen(
                 loading = loading,
                 items = it,
                 onClick = onClick,
-                onItemMore = { bottomSheetItem = it }
+                onItemMore = {
+                    bottomSheetItem = it
+                    scope.launch { sheetState.show() }
+                }
             )
         }
     }

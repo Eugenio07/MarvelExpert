@@ -22,32 +22,30 @@ import com.example.marvelexpert.ui.MarvelScreen
 @Composable
 fun <T : MarvelItem> MarvelItemBottomPreview(item: T?, onGoToDetail: (T) -> Unit) {
     if (item != null) {
-        MarvelScreen {
-            Row(
-                modifier = Modifier.padding(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Image(
-                    painter = rememberAsyncImagePainter(item.thumbnail),
-                    contentDescription = item.title,
-                    modifier = Modifier
-                        .width(96.dp)
-                        .aspectRatio(1 / 1.5f)
-                        .background(Color.LightGray)
-                )
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Text(text = item.title, style = MaterialTheme.typography.h6)
-                    Text(text = item.description)
-                    Button(
-                        onClick = { onGoToDetail(item) },
-                        modifier = Modifier.align(Alignment.End)
-                    ) {
-                        Text(text = stringResource(id = R.string.go_to_detail))
-                    }
 
+        Row(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Image(
+                painter = rememberAsyncImagePainter(item.thumbnail),
+                contentDescription = item.title,
+                modifier = Modifier
+                    .width(96.dp)
+                    .aspectRatio(1 / 1.5f)
+                    .background(Color.LightGray)
+            )
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                Text(text = item.title, style = MaterialTheme.typography.h6)
+                Text(text = item.description)
+                Button(
+                    onClick = { onGoToDetail(item) },
+                    modifier = Modifier.align(Alignment.End)
+                ) {
+                    Text(text = stringResource(id = R.string.go_to_detail))
                 }
             }
         }
@@ -60,10 +58,13 @@ fun <T : MarvelItem> MarvelItemBottomPreview(item: T?, onGoToDetail: (T) -> Unit
 @Preview
 @Composable
 fun MarvelItemBottomPreview2() {
-    MarvelItemBottomPreview(item = Character(1,
-        "Ejemplo 1",
-        "wedwedwedwedwedwe dfsdf s rfrgrgafasd  edfsd fsdf sg v",
-        "",
-        emptyList(),
-        emptyList())) {}
+    MarvelScreen {
+        MarvelItemBottomPreview(item = Character(1,
+            "Ejemplo 1",
+            "wedwedwedwedwedwe dfsdf s rfrgrgafasd  edfsd fsdf sg v",
+            "",
+            emptyList(),
+            emptyList())) {}
+    }
+
 }
