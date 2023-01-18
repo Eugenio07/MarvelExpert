@@ -1,5 +1,7 @@
 package com.example.marvelexpert.ui.screens.common
 
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -12,6 +14,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.unit.dp
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.MarvelItem
@@ -31,6 +34,10 @@ fun <T : MarvelItem> MarvelItemsListScreen(
         var bottomSheetItem by remember { mutableStateOf<T?>(null) }
         val sheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden)
         val scope = rememberCoroutineScope()
+
+        BackPressedHandler {
+            scope.launch { sheetState.hide() }
+        }
 
         ModalBottomSheetLayout(
             sheetContent = {
@@ -57,8 +64,21 @@ fun <T : MarvelItem> MarvelItemsListScreen(
             )
         }
     }
+}
 
+@Composable
+fun BackPressedHandler(onBack: () -> Unit) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val backDispatcher =
+        requireNotNull(LocalOnBackPressedDispatcherOwner.current).onBackPressedDispatcher
 
+    LaunchedEffect(lifecycleOwner, backDispatcher) {
+        backDispatcher.addCallback(lifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                onBack()
+            }
+        })
+    }
 }
 
 @ExperimentalCoilApi
