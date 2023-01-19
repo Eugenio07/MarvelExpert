@@ -76,6 +76,8 @@ dependencies {
 
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     implementation "com.google.accompanist:accompanist-pager-indicators:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+
 
     implementation "io.arrow-kt:arrow-core:1.0.0"
 

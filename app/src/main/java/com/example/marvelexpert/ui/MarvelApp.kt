@@ -8,7 +8,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import com.example.marvelexpert.R
 import com.example.marvelexpert.ui.navigation.AppBarIcon
@@ -16,6 +18,8 @@ import com.example.marvelexpert.ui.navigation.AppBottomNavigation
 import com.example.marvelexpert.ui.navigation.DrawerContent
 import com.example.marvelexpert.ui.navigation.Navigation
 import com.example.marvelexpert.ui.theme.MarvelExpertTheme
+import com.google.accompanist.systemuicontroller.SystemUiController
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @Composable
 fun MarvelApp() {
@@ -64,6 +68,17 @@ fun MarvelApp() {
                 Navigation(appState.navController)
             }
         }
+        SetStatusBarColorEffect()
+    }
+}
+
+@Composable
+private fun SetStatusBarColorEffect(
+    color: Color = MaterialTheme.colors.primaryVariant,
+    systemUiController: SystemUiController = rememberSystemUiController()
+) {
+    SideEffect {
+        systemUiController.setStatusBarColor(color)
     }
 }
 
