@@ -12,6 +12,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import com.antonioleiva.marvelcompose.ui.screens.common.MarvelTopAppBar
 import com.example.marvelexpert.R
 import com.example.marvelexpert.ui.navigation.AppBarIcon
 import com.example.marvelexpert.ui.navigation.AppBottomNavigation
@@ -28,7 +29,7 @@ fun MarvelApp() {
     MarvelScreen {
         Scaffold(
             topBar = {
-                TopAppBar(
+                MarvelTopAppBar(
                     title = { Text(stringResource(id = R.string.app_name)) },
                     navigationIcon = {
                         if (appState.showUpNavigation) {

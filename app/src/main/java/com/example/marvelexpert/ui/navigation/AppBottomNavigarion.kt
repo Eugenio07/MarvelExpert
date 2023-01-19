@@ -13,7 +13,7 @@ fun AppBottomNavigation(
     currentRoute: String,
     onNavItemClick: (NavItem) -> Unit
 ) {
-    BottomNavigation {
+    MarvelBottomNavigation {
         bottomNavOptions.forEach { item ->
             val title = stringResource(id = item.title)
             BottomNavigationItem(
