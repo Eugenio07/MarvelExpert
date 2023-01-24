@@ -7,7 +7,7 @@ import androidx.navigation.*
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
-import com.example.marvelexpert.ui.screens.*
+import com.example.marvelexpert.ui.screens.Settings
 import com.example.marvelexpert.ui.screens.characters.CharacterDetailScreen
 import com.example.marvelexpert.ui.screens.characters.CharactersScreen
 import com.example.marvelexpert.ui.screens.comics.ComicDetailScreen

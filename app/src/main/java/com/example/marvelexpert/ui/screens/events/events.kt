@@ -2,18 +2,19 @@ package com.example.marvelexpert.ui.screens.events
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.runtime.*
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.data.entities.Event
-import com.example.marvelexpert.data.repositories.EventsRepository
 import com.example.marvelexpert.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewModel()) {
+fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     MarvelItemsListScreen(
         loading = state.loading,
@@ -25,7 +26,7 @@ fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = viewMode
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun EventDetailScreen(viewModel: EventDetailViewModel = viewModel()) {
+fun EventDetailScreen(viewModel: EventDetailViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     MarvelItemDetailScreen(
             loading = state.loading,

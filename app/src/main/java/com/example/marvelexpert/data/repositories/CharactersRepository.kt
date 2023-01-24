@@ -2,7 +2,6 @@ package com.example.marvelexpert.data.repositories
 
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.entities.Result
-import com.example.marvelexpert.data.network.ApiClient
 import com.example.marvelexpert.data.network.remote.CharactersService
 import javax.inject.Inject
 

@@ -1,6 +1,5 @@
 package com.example.marvelexpert.ui.navigation
 
-import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text

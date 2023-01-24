@@ -11,7 +11,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.R
 import com.example.marvelexpert.data.entities.Comic
@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @Composable
-fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = viewModel()) {
+fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState()
     val formats = Comic.Format.values().toList()
 
@@ -99,7 +99,7 @@ private fun Comic.Format.toStringRes(): Int = when (this) {
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @Composable
-fun ComicDetailScreen(viewModel: ComicDetailViewModel = viewModel()) {
+fun ComicDetailScreen(viewModel: ComicDetailViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
     MarvelItemDetailScreen(
         loading = state.loading,
