@@ -3,12 +3,12 @@ package com.example.marvelexpert.data.repositories
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.network.ApiClient
+import com.example.marvelexpert.data.network.remote.EventsService
 
-object EventsRepository : Repository<Event>() {
+class EventsRepository(private val service: EventsService) : Repository<Event>() {
 
     suspend fun get(): Result<List<Event>> = super.get {
-        ApiClient
-            .eventsService
+        service
             .getEvents(0, 100)
             .data
             .results
@@ -18,8 +18,7 @@ object EventsRepository : Repository<Event>() {
     suspend fun find(id: Int): Result<Event> = super.find(
         id,
         findActionRemote = {
-            ApiClient
-                .eventsService
+            service
                 .findEvent(id)
                 .data
                 .results

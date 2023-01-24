@@ -1,6 +1,9 @@
 package com.example.marvelexpert.data.network
 
 import com.example.marvelexpert.BuildConfig
+import com.example.marvelexpert.data.network.remote.CharactersService
+import com.example.marvelexpert.data.network.remote.ComicsService
+import com.example.marvelexpert.data.network.remote.EventsService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

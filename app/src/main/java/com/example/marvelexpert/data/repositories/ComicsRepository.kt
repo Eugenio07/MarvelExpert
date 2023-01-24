@@ -4,12 +4,12 @@ import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.entities.tryCall
 import com.example.marvelexpert.data.network.ApiClient
+import com.example.marvelexpert.data.network.remote.ComicsService
 
-object ComicsRepository {
+class ComicsRepository(private val service: ComicsService) {
 
     suspend fun get(format: Comic.Format): Result<List<Comic>> = tryCall {
-        ApiClient
-            .comicsService
+        service
             .getComics(0, 20, format.toStringFormat())
             .data
             .results
@@ -18,8 +18,7 @@ object ComicsRepository {
 
 
     suspend fun find(id: Int): Result<Comic> = tryCall {
-        ApiClient
-            .comicsService
+        service
             .findComic(id)
             .data
             .results

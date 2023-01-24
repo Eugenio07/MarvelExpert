@@ -1,4 +1,4 @@
-package com.example.marvelexpert.data.network
+package com.example.marvelexpert.data.network.remote
 
 import com.example.marvelexpert.data.network.entities.ApiComic
 import com.example.marvelexpert.data.network.entities.ApiResponse

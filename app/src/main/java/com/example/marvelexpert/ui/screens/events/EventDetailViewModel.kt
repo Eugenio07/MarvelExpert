@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class EventDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
+class EventDetailViewModel(savedStateHandle: SavedStateHandle, repository: EventsRepository) : ViewModel() {
     private val id = savedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
 
     private val _state = MutableStateFlow(UiState())
@@ -24,7 +24,7 @@ class EventDetailViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     init {
         viewModelScope.launch {
             _state.value = UiState(loading = true)
-            _state.value = UiState(event = EventsRepository.find(id))
+            _state.value = UiState(event = repository.find(id))
         }
     }
 

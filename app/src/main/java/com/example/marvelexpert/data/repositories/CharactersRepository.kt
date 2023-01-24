@@ -3,12 +3,12 @@ package com.example.marvelexpert.data.repositories
 import com.example.marvelexpert.data.entities.Character
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.network.ApiClient
+import com.example.marvelexpert.data.network.remote.CharactersService
 
-object CharactersRepository : Repository<Character>() {
+class CharactersRepository(private val service: CharactersService) : Repository<Character>() {
 
     suspend fun get(): Result<List<Character>> = super.get {
-        ApiClient
-            .charactersService
+        service
             .getCharacters(0, 100)
             .data
             .results
@@ -19,8 +19,7 @@ object CharactersRepository : Repository<Character>() {
     suspend fun find(id: Int): Result<Character> = super.find(
         id,
         findActionRemote = {
-            ApiClient
-                .charactersService
+            service
                 .findCharacter(id)
                 .data
                 .results
