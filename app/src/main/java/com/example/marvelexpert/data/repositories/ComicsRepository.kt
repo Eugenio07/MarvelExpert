@@ -3,10 +3,10 @@ package com.example.marvelexpert.data.repositories
 import com.example.marvelexpert.data.entities.Comic
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.entities.tryCall
-import com.example.marvelexpert.data.network.ApiClient
 import com.example.marvelexpert.data.network.remote.ComicsService
+import javax.inject.Inject
 
-class ComicsRepository(private val service: ComicsService) {
+class ComicsRepository @Inject constructor(private val service: ComicsService) {
 
     suspend fun get(format: Comic.Format): Result<List<Comic>> = tryCall {
         service

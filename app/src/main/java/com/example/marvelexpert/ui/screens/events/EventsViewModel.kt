@@ -1,19 +1,19 @@
 package com.example.marvelexpert.ui.screens.events
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import arrow.core.right
 import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.repositories.EventsRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class EventsViewModel(repository: EventsRepository) : ViewModel() {
+@HiltViewModel
+class EventsViewModel @Inject constructor(repository: EventsRepository) : ViewModel() {
     private val _state = MutableStateFlow(UiState())
     val state = _state.asStateFlow()
 

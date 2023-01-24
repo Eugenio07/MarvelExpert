@@ -4,8 +4,9 @@ import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.data.entities.Result
 import com.example.marvelexpert.data.network.ApiClient
 import com.example.marvelexpert.data.network.remote.EventsService
+import javax.inject.Inject
 
-class EventsRepository(private val service: EventsService) : Repository<Event>() {
+class EventsRepository @Inject constructor(private val service: EventsService) : Repository<Event>() {
 
     suspend fun get(): Result<List<Event>> = super.get {
         service

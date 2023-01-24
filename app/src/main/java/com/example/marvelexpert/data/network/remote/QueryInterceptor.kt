@@ -4,8 +4,9 @@ import com.example.marvelexpert.data.network.generateHash
 import okhttp3.Interceptor
 import okhttp3.Response
 import java.util.*
+import javax.inject.Inject
 
-class QueryInterceptor(private val privateKey: String, private val publicKey: String) :
+class QueryInterceptor @Inject constructor(private val privateKey: String, private val publicKey: String) :
     Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
