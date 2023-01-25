@@ -23,8 +23,6 @@ import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalPagerApi::class)
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
 @Composable
 fun ComicsScreen(onClick: (Comic) -> Unit, viewModel: ComicsViewModel = hiltViewModel()) {
     val pagerState = rememberPagerState()
@@ -96,8 +94,6 @@ private fun Comic.Format.toStringRes(): Int = when (this) {
     Comic.Format.INFINITE_COMIC -> R.string.infinite_comic
 }
 
-@ExperimentalCoilApi
-@ExperimentalMaterialApi
 @Composable
 fun ComicDetailScreen(viewModel: ComicDetailViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
@@ -105,5 +101,4 @@ fun ComicDetailScreen(viewModel: ComicDetailViewModel = hiltViewModel()) {
         loading = state.loading,
         marvelItem = state.comic
     )
-
 }

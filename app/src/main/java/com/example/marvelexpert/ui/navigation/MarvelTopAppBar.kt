@@ -1,4 +1,4 @@
-package com.antonioleiva.marvelcompose.ui.screens.common
+package com.example.marvelexpert.ui.navigation
 
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material.AppBarDefaults

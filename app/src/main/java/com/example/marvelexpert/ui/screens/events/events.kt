@@ -11,8 +11,6 @@ import com.example.marvelexpert.data.entities.Event
 import com.example.marvelexpert.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelexpert.ui.screens.common.MarvelItemsListScreen
 
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
 @Composable
 fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()
@@ -23,8 +21,6 @@ fun EventsScreen(onClick: (Event) -> Unit, viewModel: EventsViewModel = hiltView
     )
 }
 
-@ExperimentalCoilApi
-@ExperimentalMaterialApi
 @Composable
 fun EventDetailScreen(viewModel: EventDetailViewModel = hiltViewModel()) {
     val state by viewModel.state.collectAsState()

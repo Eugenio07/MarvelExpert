@@ -27,8 +27,6 @@ import com.example.marvelexpert.data.entities.Result
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterialApi::class)
-@ExperimentalCoilApi
-@ExperimentalFoundationApi
 @Composable
 fun <T : MarvelItem> MarvelItemsListScreen(
     loading: Boolean = false,

@@ -4,7 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -26,8 +28,8 @@ fun DrawerContent(
             .background(
                 Brush.verticalGradient(
                     listOf(
-                        MaterialTheme.colors.primaryVariant,
-                        MaterialTheme.colors.secondary
+                        MaterialTheme.colorScheme.secondary,
+                        MaterialTheme.colorScheme.tertiary
                     )
                 )
             )
@@ -37,11 +39,11 @@ fun DrawerContent(
     Spacer(modifier = Modifier.height(16.dp))
     drawerOptions.forEachIndexed { index, navItem ->
         val selected = selectedIndex == index
-        val colors = MaterialTheme.colors
+        val colors = MaterialTheme.colorScheme
         val localContentColor = if (selected) colors.primary else colors.onBackground
 
         CompositionLocalProvider(
-            LocalTextStyle provides MaterialTheme.typography.body1.copy(fontWeight = FontWeight.Bold),
+            LocalTextStyle provides MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
             LocalContentColor provides localContentColor,
             ) {
             Row(

@@ -1,7 +1,5 @@
 package com.example.marvelexpert.ui.navigation
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
@@ -48,7 +46,6 @@ private fun NavGraphBuilder.charactersNav(navController: NavHostController) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
 private fun NavGraphBuilder.comicsNav(navController: NavController) {
     navigation(
         startDestination = NavCommand.ContentType(Feature.COMICS).route,
@@ -70,7 +67,6 @@ private fun NavGraphBuilder.comicsNav(navController: NavController) {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalCoilApi::class, ExperimentalMaterialApi::class)
 private fun NavGraphBuilder.eventsNav(navController: NavController) {
     navigation(
         startDestination = NavCommand.ContentType(Feature.EVENTS).route,
