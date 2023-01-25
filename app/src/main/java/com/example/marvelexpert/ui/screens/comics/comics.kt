@@ -1,9 +1,11 @@
 package com.example.marvelexpert.ui.screens.comics
 
 import androidx.annotation.StringRes
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.*
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -12,9 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.annotation.ExperimentalCoilApi
 import com.example.marvelexpert.R
 import com.example.marvelexpert.data.entities.Comic
+import com.example.marvelexpert.ui.common.pagerTabIndicatorOffset
 import com.example.marvelexpert.ui.screens.common.ErrorMessage
 import com.example.marvelexpert.ui.screens.common.MarvelItemDetailScreen
 import com.example.marvelexpert.ui.screens.common.MarvelItemList

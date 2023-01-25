@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
 import com.example.marvelexpert.ui.navigation.MarvelTopAppBar
 import com.example.marvelexpert.R
@@ -24,8 +25,10 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MarvelApp() {
-    val appState = rememberMarvelAppState()
+
+fun MarvelApp(appState: MarvelAppState = rememberMarvelAppState()) {
+    val scroolState = rememberTopAppBarState()
+    val scrollBehavior =TopAppBarDefaults.enterAlwaysScrollBehavior(scroolState)
     MarvelScreen {
         ModalNavigationDrawer(
             drawerState = appState.drawerState,
@@ -39,6 +42,7 @@ fun MarvelApp() {
                 }
             }) {
             Scaffold(
+                modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
                 topBar = {
                     MarvelTopAppBar(
                         title = { Text(stringResource(id = R.string.app_name)) },
@@ -54,7 +58,8 @@ fun MarvelApp() {
                                     onClick = { appState.onMenuClick() }
                                 )
                             }
-                        }
+                        },
+                        scrollBehavior = scrollBehavior
                     )
                 },
                 bottomBar = {

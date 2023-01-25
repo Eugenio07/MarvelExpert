@@ -14,12 +14,13 @@ fun MarvelTopAppBar(
     modifier: Modifier = Modifier,
     navigationIcon: @Composable (() -> Unit) = {},
     actions: @Composable RowScope.() -> Unit = {},
-
+    scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
     TopAppBar(
         title = title,
         modifier = modifier,
         navigationIcon = navigationIcon,
-        actions = actions
+        actions = actions,
+        scrollBehavior = scrollBehavior
     )
 }
