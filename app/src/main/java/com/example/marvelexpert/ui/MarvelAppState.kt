@@ -1,7 +1,9 @@
 package com.example.marvelexpert.ui
 
-import androidx.compose.material.ScaffoldState
-import androidx.compose.material.rememberScaffoldState
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -14,19 +16,20 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun rememberMarvelAppState(
-    scaffoldState: ScaffoldState = rememberScaffoldState(),
+    drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     navController: NavHostController = rememberNavController(),
-    coroutineScope: CoroutineScope = rememberCoroutineScope()
-): MarvelAppState = remember(scaffoldState, navController, coroutineScope) {
-    MarvelAppState(scaffoldState, navController, coroutineScope)
+    coroutineScope: CoroutineScope = rememberCoroutineScope(),
+): MarvelAppState = remember(drawerState, navController, coroutineScope) {
+    MarvelAppState(drawerState, navController, coroutineScope)
 }
 
-class MarvelAppState(
-    val scaffoldState: ScaffoldState,
+class MarvelAppState @OptIn(ExperimentalMaterial3Api::class) constructor(
+    val drawerState: DrawerState,
     val navController: NavHostController,
-    private val coroutineScope: CoroutineScope
+    private val coroutineScope: CoroutineScope,
 ) {
     companion object {
         val DRAWER_OPTIONS = listOf(NavItem.HOME, NavItem.SETTINGS)
@@ -52,14 +55,15 @@ class MarvelAppState(
 
     fun onUpClick() = navController.popBackStack()
 
-    fun onMenuClick() = coroutineScope.launch { scaffoldState.drawerState.open() }
+    @OptIn(ExperimentalMaterial3Api::class)
+    fun onMenuClick() = coroutineScope.launch { drawerState.open() }
 
     fun onNavItemClick(navItem: NavItem) =
         navController.navigatePoppingUpToStartDestination(navItem.navCommand.route)
 
+    @OptIn(ExperimentalMaterial3Api::class)
     fun onDrawerOptionClick(navItem: NavItem) {
-        coroutineScope.launch { scaffoldState.drawerState.close() }
+        coroutineScope.launch { drawerState.close() }
         onNavItemClick(navItem)
     }
-
 }

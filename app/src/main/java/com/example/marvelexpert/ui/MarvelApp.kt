@@ -3,13 +3,10 @@ package com.example.marvelexpert.ui
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Modifier
@@ -25,50 +22,53 @@ import com.example.marvelexpert.ui.theme.MarvelExpertTheme
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MarvelApp() {
     val appState = rememberMarvelAppState()
     MarvelScreen {
-        Scaffold(
-            topBar = {
-                MarvelTopAppBar(
-                    title = { Text(stringResource(id = R.string.app_name)) },
-                    navigationIcon = {
-                        if (appState.showUpNavigation) {
-                            AppBarIcon(
-                                imageVector = Icons.Default.ArrowBack,
-                                onClick = { appState.onUpClick() }
-                            )
-                        } else {
-                            AppBarIcon(
-                                imageVector = Icons.Default.Menu,
-                                onClick = { appState.onMenuClick() }
-                            )
-                        }
-                    }
-                )
-            },
-            bottomBar = {
-                if (appState.showBottomNavigation) {
-                    AppBottomNavigation(
-                        bottomNavOptions = MarvelAppState.BOTTOM_NAV_OPTIONS,
-                        currentRoute = appState.currentRoute
-                    ) { appState.onNavItemClick(it) }
-                }
-            },
+        ModalNavigationDrawer(
+            drawerState = appState.drawerState,
             drawerContent = {
-                DrawerContent(
-                    drawerOptions = MarvelAppState.DRAWER_OPTIONS,
-                    selectedIndex = appState.drawerSelectedIndex,
-                    onOptionClick = { navItem ->
-                        appState.onDrawerOptionClick(navItem)
+                ModalDrawerSheet {
+                    DrawerContent(
+                        drawerOptions = MarvelAppState.DRAWER_OPTIONS,
+                        selectedIndex = appState.drawerSelectedIndex,
+                        onOptionClick = { appState.onDrawerOptionClick(it) }
+                    )
+                }
+            }) {
+            Scaffold(
+                topBar = {
+                    MarvelTopAppBar(
+                        title = { Text(stringResource(id = R.string.app_name)) },
+                        navigationIcon = {
+                            if (appState.showUpNavigation) {
+                                AppBarIcon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    onClick = { appState.onUpClick() }
+                                )
+                            } else {
+                                AppBarIcon(
+                                    imageVector = Icons.Default.Menu,
+                                    onClick = { appState.onMenuClick() }
+                                )
+                            }
+                        }
+                    )
+                },
+                bottomBar = {
+                    if (appState.showBottomNavigation) {
+                        AppBottomNavigation(
+                            bottomNavOptions = MarvelAppState.BOTTOM_NAV_OPTIONS,
+                            currentRoute = appState.currentRoute
+                        ) { appState.onNavItemClick(it) }
                     }
-                )
-            },
-            scaffoldState = appState.scaffoldState
-        ) { padding ->
-            Box(modifier = Modifier.padding(padding)) {
-                Navigation(appState.navController)
+                },
+            ) { padding ->
+                Box(modifier = Modifier.padding(padding)) {
+                    Navigation(appState.navController)
+                }
             }
         }
         SetStatusBarColorEffect()
@@ -77,7 +77,7 @@ fun MarvelApp() {
 
 @Composable
 private fun SetStatusBarColorEffect(
-    color: Color = MaterialTheme.colors.primaryVariant,
+    color: Color = MaterialTheme.colorScheme.secondary,
     systemUiController: SystemUiController = rememberSystemUiController()
 ) {
     SideEffect {
@@ -90,7 +90,7 @@ fun MarvelScreen(content: @Composable () -> Unit) {
     MarvelExpertTheme {
         Surface(
             modifier = Modifier.fillMaxSize(),
-            color = MaterialTheme.colors.background
+            color = MaterialTheme.colorScheme.background
         ) {
             content()
         }
